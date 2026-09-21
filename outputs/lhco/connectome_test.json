@@ -1,0 +1,90 @@
+{
+  "wiring": {
+    "dataset": "malecns",
+    "side": "right",
+    "n_kc": 2045,
+    "n_glomeruli": 50,
+    "total_synapses": 186309,
+    "mean_claws_per_kc": 4.8982885085574575,
+    "median_claws_per_kc": 5.0,
+    "kc_with_no_olfactory_input": 154
+  },
+  "glomeruli": [
+    "D",
+    "DA1",
+    "DA2",
+    "DA4l",
+    "DA4m",
+    "DC1",
+    "DC2",
+    "DC3",
+    "DC4",
+    "DL1",
+    "DL2d",
+    "DL2v",
+    "DL3",
+    "DL4",
+    "DL5",
+    "DM1",
+    "DM2",
+    "DM3",
+    "DM4",
+    "DM5",
+    "DM6",
+    "DP1l",
+    "DP1m",
+    "M",
+    "V",
+    "VA1d",
+    "VA1v",
+    "VA2",
+    "VA3",
+    "VA4",
+    "VA5",
+    "VA6",
+    "VA7l",
+    "VA7m",
+    "VC1",
+    "VC2",
+    "VC3",
+    "VC4",
+    "VC5",
+    "VL2a",
+    "VL2p",
+    "VM1",
+    "VM2",
+    "VM3",
+    "VM4",
+    "VM5d",
+    "VM5v",
+    "VM6",
+    "VM7d",
+    "VM7v"
+  ],
+  "measured_claws_per_live_kc": 5.297197250132205,
+  "n_live_kc": 1891,
+  "runs": {
+    "measured": {
+      "auc": 0.68925489865,
+      "seconds": 3.7763922214508057
+    },
+    "degree_matched": {
+      "aucs": [
+        0.69483215715,
+        0.6914030274,
+        0.69779814185
+      ],
+      "mean": 0.6946777754666668,
+      "std": 0.0026130757719924876
+    },
+    "sampled": {
+      "aucs": [
+        0.7029217553,
+        0.6932813516999999,
+        0.69182312645
+      ],
+      "mean": 0.6960087444833333,
+      "std": 0.004924354044504882
+    }
+  }
+}

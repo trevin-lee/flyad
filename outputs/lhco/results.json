@@ -1,0 +1,75 @@
+{
+  "fly": {
+    "name": "Fly olfactory circuit",
+    "trainable_parameters": 0,
+    "train_seconds": 24.46898102760315,
+    "diagnostics": {
+      "n_seen": 600000,
+      "kc_never_used": 0,
+      "mean_count": 30000.0,
+      "depression_rate": 3.3333333333333335e-05,
+      "mean_weight": 0.5582128616590144,
+      "weight_spread": 0.3227230238615873
+    },
+    "auc": 0.70752724935,
+    "max_sic": 1.2110405235963324,
+    "eps_s_at_eps_b_1e-2": 0.0024,
+    "eps_s_at_eps_b_1e-3": 7e-05
+  },
+  "gaussian": {
+    "name": "Gaussian (Mahalanobis)",
+    "trainable_parameters": 1325,
+    "train_seconds": 0.4544076919555664,
+    "auc": 0.7372164657,
+    "max_sic": 1.3733993215279792,
+    "eps_s_at_eps_b_1e-2": 0.00777,
+    "eps_s_at_eps_b_1e-3": 0.00077
+  },
+  "autoencoder": {
+    "name": "Autoencoder",
+    "trainable_parameters": 4568,
+    "train_seconds": 12.479796409606934,
+    "auc": 0.74068642125,
+    "max_sic": 1.345188211993364,
+    "eps_s_at_eps_b_1e-2": 0.00661,
+    "eps_s_at_eps_b_1e-3": 0.00066
+  },
+  "kc_sweep": [
+    {
+      "n_kc": 50,
+      "auc": 0.6529884853517529
+    },
+    {
+      "n_kc": 100,
+      "auc": 0.6742804668061653
+    },
+    {
+      "n_kc": 200,
+      "auc": 0.6874024265183462
+    },
+    {
+      "n_kc": 500,
+      "auc": 0.6949152809020179
+    },
+    {
+      "n_kc": 1000,
+      "auc": 0.7011547636646498
+    },
+    {
+      "n_kc": 2000,
+      "auc": 0.7058393731971451
+    },
+    {
+      "n_kc": 5000,
+      "auc": 0.7092615466410344
+    },
+    {
+      "n_kc": 10000,
+      "auc": 0.7064352804138199
+    },
+    {
+      "n_kc": 20000,
+      "auc": 0.7059130946899419
+    }
+  ]
+}

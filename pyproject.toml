@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flyad"
+version = "0.1.0"
+description = "A fruit fly's olfactory circuit as an LHC anomaly detector."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Trevin Lee" }]
+keywords = ["anomaly-detection", "high-energy-physics", "connectome",
+            "drosophila", "neuromorphic", "LHC"]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.15",
+    "pandas>=2.0",
+    "tables>=3.10",
+    "h5py>=3.0",
+    "scikit-learn>=1.5",
+    "matplotlib>=3.8",
+    "fastjet>=3.5",
+    "awkward>=2.6",
+    "tqdm>=4.66",
+    "torch>=2.0",
+]
+
+[project.optional-dependencies]
+# the embodied fly; not needed for the detector or the analysis
+body = ["flygym==1.2.1", "networkx>=3.0"]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+include = ["flyad*"]
+namespaces = false

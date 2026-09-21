@@ -1,0 +1,21 @@
+# ---- environments and builds -------------------------------------------
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# ---- vendored third-party source, cloned and built by the user ---------
+# see the "The real AXOL1TL" section of the README
+external/
+
+# ---- datasets: downloaded, not committed -------------------------------
+# see data/README.md for the exact commands
+data/
+
+# ---- large generated intermediates -------------------------------------
+outputs/**/*.npz
+outputs/**/report.html
+outputs/**/_*.mp4
+
+# figures, result JSON and the reels ARE committed -- they are the point

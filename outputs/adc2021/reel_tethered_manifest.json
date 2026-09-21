@@ -1,0 +1,62 @@
+[
+  {
+    "clip": 1,
+    "class": "true positive",
+    "novelty": 0.6694150993404362,
+    "truth": 1,
+    "called_anomaly": true,
+    "yaw_deg": 1860.7740800516285,
+    "yaw_corrected_deg": 1612.7947467182953,
+    "leg_asymmetry": -0.15692306345672027,
+    "drive": [
+      0.6618210077285767,
+      1.3381789922714233
+    ],
+    "n_frames": 141
+  },
+  {
+    "clip": 2,
+    "class": "true negative",
+    "novelty": 0.37037742060811296,
+    "truth": 0,
+    "called_anomaly": false,
+    "yaw_deg": 90.89355920622782,
+    "yaw_corrected_deg": -157.08577412710554,
+    "leg_asymmetry": 0.038186017376477546,
+    "drive": [
+      1.110377550125122,
+      0.8896225094795227
+    ],
+    "n_frames": 141
+  },
+  {
+    "clip": 3,
+    "class": "false positive",
+    "novelty": 0.44396242545746856,
+    "truth": 0,
+    "called_anomaly": true,
+    "yaw_deg": -57.3924547881148,
+    "yaw_corrected_deg": -305.37178812144816,
+    "leg_asymmetry": -0.001172338555778409,
+    "drive": [
+      1.0,
+      1.0
+    ],
+    "n_frames": 141
+  },
+  {
+    "clip": 4,
+    "class": "false negative",
+    "novelty": 0.3158600159334411,
+    "truth": 1,
+    "called_anomaly": false,
+    "yaw_deg": -394.5172797332438,
+    "yaw_corrected_deg": -642.4966130665772,
+    "leg_asymmetry": 0.10617556872842998,
+    "drive": [
+      1.1921535730361938,
+      0.8078463673591614
+    ],
+    "n_frames": 141
+  }
+]

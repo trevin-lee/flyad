@@ -1,0 +1,98 @@
+[
+  {
+    "clip": 1,
+    "class": "true positive",
+    "event_id": 1034567,
+    "novelty": 0.6924780160065205,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": true,
+    "truth": 1,
+    "reached": true,
+    "walk_time_s": 1.0111,
+    "n_frames": 74
+  },
+  {
+    "clip": 2,
+    "class": "true positive",
+    "event_id": 1045137,
+    "novelty": 0.6891712404869621,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": true,
+    "truth": 1,
+    "reached": true,
+    "walk_time_s": 1.0111,
+    "n_frames": 74
+  },
+  {
+    "clip": 3,
+    "class": "true negative",
+    "event_id": 967301,
+    "novelty": 0.1401922996006528,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": false,
+    "truth": 0,
+    "reached": true,
+    "walk_time_s": 0.9437000000000001,
+    "n_frames": 70
+  },
+  {
+    "clip": 4,
+    "class": "true negative",
+    "event_id": 658789,
+    "novelty": 0.030178340232223502,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": false,
+    "truth": 0,
+    "reached": true,
+    "walk_time_s": 0.9437000000000001,
+    "n_frames": 70
+  },
+  {
+    "clip": 5,
+    "class": "false positive",
+    "event_id": 965610,
+    "novelty": 0.6572180894869568,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": true,
+    "truth": 0,
+    "reached": true,
+    "walk_time_s": 1.0111,
+    "n_frames": 74
+  },
+  {
+    "clip": 6,
+    "class": "false positive",
+    "event_id": 378718,
+    "novelty": 0.42917558360195235,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": true,
+    "truth": 0,
+    "reached": true,
+    "walk_time_s": 1.0111,
+    "n_frames": 74
+  },
+  {
+    "clip": 7,
+    "class": "false negative",
+    "event_id": 1023593,
+    "novelty": 0.23035094502819084,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": false,
+    "truth": 1,
+    "reached": true,
+    "walk_time_s": 0.9437000000000001,
+    "n_frames": 70
+  },
+  {
+    "clip": 8,
+    "class": "false negative",
+    "event_id": 1045406,
+    "novelty": 0.38589272641828143,
+    "threshold": 0.4167932313866842,
+    "called_anomaly": false,
+    "truth": 1,
+    "reached": true,
+    "walk_time_s": 0.9437000000000001,
+    "n_frames": 70
+  }
+]

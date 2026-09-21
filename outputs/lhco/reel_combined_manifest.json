@@ -1,0 +1,46 @@
+[
+  {
+    "clip": 1,
+    "class": "true positive",
+    "event_id": 1034567,
+    "novelty": 0.6924780160065205,
+    "truth": 1,
+    "called_anomaly": true,
+    "kc_firing": 121,
+    "kc_total": 2417,
+    "leg_asymmetry": -0.18114535147129654
+  },
+  {
+    "clip": 2,
+    "class": "true negative",
+    "event_id": 455056,
+    "novelty": 0.06531401505879368,
+    "truth": 0,
+    "called_anomaly": false,
+    "kc_firing": 121,
+    "kc_total": 2417,
+    "leg_asymmetry": 0.22395121768375056
+  },
+  {
+    "clip": 3,
+    "class": "false positive",
+    "event_id": 987328,
+    "novelty": 0.47522403755754633,
+    "truth": 0,
+    "called_anomaly": true,
+    "kc_firing": 121,
+    "kc_total": 2417,
+    "leg_asymmetry": -0.032632699265979226
+  },
+  {
+    "clip": 4,
+    "class": "false negative",
+    "event_id": 1090397,
+    "novelty": 0.23927705334919097,
+    "truth": 1,
+    "called_anomaly": false,
+    "kc_firing": 121,
+    "kc_total": 2417,
+    "leg_asymmetry": 0.1367824517209927
+  }
+]

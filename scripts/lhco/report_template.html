@@ -1,0 +1,564 @@
+<title>flyad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#f4f3ef; --surface:#fbfaf8; --surface-2:#eae7e0; --line:#d6d2c8;
+  --ink:#1c2226; --ink-2:#454f55; --muted:#6b757b;
+  --accent:#8f6414; --accent-soft:#8f641422;
+  --s1:#8f6414; --s2:#00856f; --s3:#7038c4;
+  --anomaly:#c0392e; --normal:#2166b0;
+  --shadow:0 1px 2px rgba(28,34,38,.06),0 8px 24px rgba(28,34,38,.05);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#161b1f; --surface:#1e252a; --surface-2:#252d33; --line:#333d44;
+  --ink:#e6e3dc; --ink-2:#b3bcc2; --muted:#8b969c;
+  --accent:#b8821f; --accent-soft:#b8821f26;
+  --s1:#b8821f; --s2:#00a08f; --s3:#9b5de5;
+  --anomaly:#d8483f; --normal:#3d86d8;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.28);
+}}
+:root[data-theme="dark"]{
+  --ground:#161b1f; --surface:#1e252a; --surface-2:#252d33; --line:#333d44;
+  --ink:#e6e3dc; --ink-2:#b3bcc2; --muted:#8b969c;
+  --accent:#b8821f; --accent-soft:#b8821f26;
+  --s1:#b8821f; --s2:#00a08f; --s3:#9b5de5;
+  --anomaly:#d8483f; --normal:#3d86d8;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.page{max-width:940px; margin:0 auto; padding-inline:20px; padding-block:0 72px}
+h1,h2,h3{font-family:Spectral,Georgia,"Times New Roman",serif; text-wrap:balance; margin:0}
+h1{font-size:clamp(3rem,10vw,5.25rem); font-weight:600; line-height:.95; letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,3.6vw,2rem); font-weight:600; line-height:1.15}
+h3{font-size:1.125rem; font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted);
+}
+section{margin-block-start:72px}
+.rule{height:1px; background:var(--line); border:0; margin:0}
+
+/* header ---------------------------------------------------------------- */
+header{padding-block-start:56px}
+.specimen{display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-block-end:22px}
+.specimen .tick{width:26px; height:1px; background:var(--accent); align-self:center}
+.lede{
+  font-family:Spectral,Georgia,serif; font-size:clamp(1.15rem,2.4vw,1.4rem);
+  line-height:1.5; color:var(--ink-2); max-width:60ch; margin-block-start:24px;
+}
+.lede em{color:var(--ink); font-style:italic}
+
+/* stat strip ------------------------------------------------------------ */
+.stats{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px; background:var(--line); border:1px solid var(--line);
+  margin-block-start:40px;
+}
+.stat{background:var(--ground); padding:20px 18px}
+.stat .v{
+  font-family:"IBM Plex Mono",monospace; font-size:clamp(1.5rem,4vw,2.1rem);
+  font-weight:500; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums;
+}
+.stat.hero .v{color:var(--accent)}
+.stat .k{font-size:.78rem; color:var(--muted); margin-block-start:8px; line-height:1.35}
+
+/* generic prose --------------------------------------------------------- */
+.prose{max-width:66ch; display:flex; flex-direction:column; gap:18px; color:var(--ink-2)}
+.prose strong{color:var(--ink); font-weight:600}
+.head{display:flex; flex-direction:column; gap:10px; margin-block-end:26px}
+
+/* video ----------------------------------------------------------------- */
+figure{margin:0}
+.vidwrap{
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:var(--shadow); overflow:hidden;
+}
+.vidwrap video{display:block; width:100%; height:auto; max-width:100%}
+.novideo{padding:40px 22px; color:var(--muted); font-size:.9rem; text-align:center}
+figcaption{
+  margin-block-start:14px; font-size:.86rem; color:var(--muted);
+  max-width:68ch; line-height:1.55;
+}
+
+/* circuit --------------------------------------------------------------- */
+.circuit{border:1px solid var(--line); background:var(--surface); padding:26px 20px; overflow-x:auto}
+.circuit svg{display:block; min-width:660px; width:100%; height:auto}
+
+/* table ----------------------------------------------------------------- */
+.tablewrap{overflow-x:auto; border:1px solid var(--line)}
+table{border-collapse:collapse; width:100%; min-width:600px; font-size:.92rem}
+th,td{padding:13px 16px; text-align:right; border-block-end:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); font-weight:500;
+  background:var(--surface-2); border-block-end:1px solid var(--line);
+}
+tbody tr:last-child td{border-block-end:0}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+tr.fly td{background:var(--accent-soft)}
+tr.fly td:first-child{font-weight:600; color:var(--ink)}
+.swatch{display:inline-block; width:9px; height:9px; border-radius:50%; margin-inline-end:9px; vertical-align:baseline}
+
+/* charts ---------------------------------------------------------------- */
+.chartgrid{display:grid; gap:40px}
+.chart{border:1px solid var(--line); background:var(--surface); padding:22px 20px 16px}
+.chart .ct{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-block-end:4px}
+.chart h3{font-family:"IBM Plex Sans",sans-serif; font-size:.95rem; font-weight:600}
+.chart .sub{font-size:.8rem; color:var(--muted); max-width:58ch; margin-block-start:6px; line-height:1.5}
+.legend{display:flex; gap:16px; flex-wrap:wrap; font-size:.78rem; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.plot{position:relative; margin-block-start:16px}
+.plot svg{display:block; width:100%; height:auto; overflow:visible}
+.tip{
+  position:absolute; pointer-events:none; opacity:0; transition:opacity .1s;
+  background:var(--ink); color:var(--ground); font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem; line-height:1.5; padding:7px 10px; white-space:nowrap;
+  transform:translate(-50%,-115%); z-index:3; box-shadow:var(--shadow);
+}
+.tip.on{opacity:1}
+.axlab{font-family:"IBM Plex Mono",monospace; font-size:10px; fill:var(--muted)}
+.axtitle{font-family:"IBM Plex Sans",sans-serif; font-size:11px; fill:var(--ink-2)}
+.gridline{stroke:var(--line); stroke-width:1}
+.axis{stroke:var(--line); stroke-width:1}
+.dlabel{font-family:"IBM Plex Sans",sans-serif; font-size:11px; font-weight:600}
+
+/* callout --------------------------------------------------------------- */
+.callout{border-inline-start:2px solid var(--accent); padding:4px 0 4px 20px; max-width:66ch}
+.callout .t{font-weight:600; color:var(--ink); margin-block-end:6px}
+.callout p{color:var(--ink-2); font-size:.95rem}
+
+/* honest ---------------------------------------------------------------- */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.card{background:var(--ground); padding:20px 18px; display:flex; flex-direction:column; gap:8px}
+.card .t{font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.card p{font-size:.88rem; color:var(--ink-2); line-height:1.55}
+
+footer{margin-block-start:72px; padding-block-start:26px; border-block-start:1px solid var(--line); font-size:.82rem; color:var(--muted); display:flex; flex-direction:column; gap:10px}
+footer a{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+</style>
+
+<div class="page">
+<header>
+  <div class="specimen">
+    <span class="eyebrow">Drosophila melanogaster</span><span class="tick"></span>
+    <span class="eyebrow">LHC Olympics 2020 &middot; R&amp;D</span>
+  </div>
+  <h1>flyad</h1>
+  <p class="lede">A one-class anomaly detector for LHC dijet events, built from the
+  <em>Drosophila</em> olfactory circuit. It has no trainable parameters, computes no
+  gradients, and delivers its verdict by walking onto a button.</p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<section>
+  <div class="head">
+    <span class="eyebrow">Behavioural readout</span>
+    <h2>The fly calls the event</h2>
+  </div>
+  <figure>
+    <div class="vidwrap" id="vidwrap"></div>
+    <figcaption id="vidcap"></figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <span class="eyebrow">Circuit</span>
+    <h2>Fifty glomeruli in, one decision out</h2>
+  </div>
+  <div class="prose" style="margin-block-end:26px">
+    <p>The fly mushroom body is a novelty detector — not as an analogy, but as a
+    published result. <strong>Dasgupta, Stevens &amp; Navlakha (Science, 2017)</strong> showed the
+    antennal&nbsp;lobe&nbsp;&rarr;&nbsp;Kenyon&nbsp;cell projection is a locality-sensitive hash;
+    <strong>Dasgupta, Sheehan, Stevens &amp; Navlakha (PNAS, 2018)</strong> showed the mushroom body
+    implements a variant of a Bloom filter. An anomaly search is the same problem:
+    see a great deal of background, then flag what is not like it.</p>
+  </div>
+  <div class="circuit" id="circuit"></div>
+  <div class="callout" style="margin-block-start:26px">
+    <div class="t">The accident that matters</div>
+    <p>The antennal lobe applies divisive normalisation, which in the fly makes odour
+    representation invariant to concentration. Transposed to jets, that is exactly
+    pT-scale invariance — so the detector cannot fall into the usual failure mode of
+    learning that &ldquo;high pT is unusual&rdquo; and rediscovering the trigger threshold.
+    The fly refuses to do this for reasons that have nothing to do with particle physics.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <span class="eyebrow">Results</span>
+    <h2>Measured against real baselines</h2>
+  </div>
+  <div class="prose" style="margin-block-end:26px">
+    <p>All three detectors see the same 50 glomeruli and are trained one-class on the
+    same 600,000 background events. Truth labels are used only for evaluation.
+    <strong>The fly loses.</strong> It is also the only one of the three with nothing to fit.</p>
+  </div>
+  <div class="tablewrap"><table id="restable"></table></div>
+  <p class="sub" style="font-size:.8rem;color:var(--muted);margin-block-start:12px">
+    &epsilon;<sub>S</sub> is signal efficiency at the quoted background efficiency.
+    Max SIC is the peak significance improvement, &epsilon;<sub>S</sub>/&radic;&epsilon;<sub>B</sub>.
+  </p>
+</section>
+
+<section>
+  <div class="head">
+    <span class="eyebrow">Discrimination</span>
+    <h2>Where the separation comes from</h2>
+  </div>
+  <div class="chartgrid">
+    <div class="chart">
+      <div class="ct"><div><h3>ROC, log background efficiency</h3>
+        <p class="sub">Log axis because the useful region is the far left: how much signal survives
+        when almost all background has been cut.</p></div>
+        <div class="legend" id="roclegend"></div></div>
+      <div class="plot" id="rocplot"></div>
+    </div>
+    <div class="chart">
+      <div class="ct"><div><h3>Fly novelty score</h3>
+        <p class="sub">The MBON's response, over the 200,000-event test set. Overlapping, but
+        displaced — which is all an unsupervised score can be.</p></div>
+        <div class="legend" id="histlegend"></div></div>
+      <div class="plot" id="histplot"></div>
+    </div>
+    <div class="chart">
+      <div class="ct"><div><h3>Does the expansion help?</h3>
+        <p class="sub">Sweeping the Kenyon cell count with everything else fixed. A real fly has
+        about 2,000.</p></div></div>
+      <div class="plot" id="sweepplot"></div>
+    </div>
+  </div>
+  <div class="callout" style="margin-block-start:34px" id="sweepnote"></div>
+</section>
+
+<section>
+  <div class="head">
+    <span class="eyebrow">The part that matters</span>
+    <h2>Everything here fails where it counts</h2>
+  </div>
+  <div class="prose" style="margin-block-end:26px">
+    <p>A discovery does not live at loose cuts. It lives in the tail, after almost all
+    background has been rejected. So the honest question is not the AUC &mdash; it is how
+    much signal survives at a given background efficiency, measured against the line
+    random guessing would give you.</p>
+  </div>
+  <div class="tablewrap"><table id="wptable"></table></div>
+  <div class="callout" style="margin-block-start:26px">
+    <div class="t">All three cross below random at the same place</div>
+    <p>Every detector beats chance at loose cuts and falls <strong>under</strong> it once you cut
+    hard, somewhere between &epsilon;<sub>B</sub>&nbsp;=&nbsp;0.10 and 0.05. The most
+    anomalous-looking events under all three methods are not the Z&prime; &mdash; they are
+    unusual QCD. That is why max SIC sits near 1.2&ndash;1.4 for the fly, the Gaussian and
+    the autoencoder alike: almost no significance improvement, whatever you fit.</p>
+    <p style="margin-block-start:12px">This is not a defect of the fly. It is the known
+    failure mode of unsupervised anomaly detection at a hadron collider, and the fly
+    reproduces it faithfully at a fraction of the parameter count.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <span class="eyebrow">Caveats</span>
+    <h2>What is not biology</h2>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="t">The steering</div>
+      <p>A proportional controller on heading error. The real MBON&nbsp;&rarr;&nbsp;DAN&nbsp;&rarr;&nbsp;descending
+      pathway biases turning, but it is not a P controller, and pretending otherwise
+      would be the one dishonest claim here.</p></div>
+    <div class="card"><div class="t">The encoding</div>
+      <p>A fly does not have a calorimeter. Mapping jet constituents onto 50 glomeruli is
+      our choice; only what happens downstream of it is the animal's.</p></div>
+    <div class="card"><div class="t">The verdict</div>
+      <p>Scores come from the full 1.1M-event run in NumPy. MuJoCo renders a selected
+      handful — you cannot push a million events through a physical fly.</p></div>
+    <div class="card"><div class="t">The dataset</div>
+      <p>LHCO R&amp;D has known labels. The honest next step is the black boxes, where the
+      signal is undisclosed and nobody can tune against it.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>Circuit: Dasgupta, Stevens &amp; Navlakha, <em>Science</em> 358:793 (2017) &middot;
+  Dasgupta, Sheehan, Stevens &amp; Navlakha, <em>PNAS</em> 115:13093 (2018) &middot;
+  Olsen, Bhandawat &amp; Wilson, <em>Neuron</em> 66:287 (2010).</p>
+  <p>Body: NeuroMechFly, Lobato-Rios et al., <em>Nature Methods</em> 19:620 (2022);
+  Wang-Chen et al., <em>Nature Methods</em> 21:2353 (2024). Clustering: FastJet,
+  <a href="https://arxiv.org/abs/1111.6097">arXiv:1111.6097</a>. Data:
+  <a href="https://zenodo.org/records/6466204">LHC Olympics 2020 R&amp;D</a>.</p>
+</footer>
+</div>
+
+<script id="payload" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById("payload").textContent);
+const VIDEO = "__VIDEO__";
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt = (v,d=4) => Number(v).toFixed(d);
+const commas = v => Number(v).toLocaleString("en-US");
+
+/* ---- stat strip ---- */
+(function(){
+  const f = D.results.fly;
+  const tiles = [
+    {v:"0", k:"trainable parameters", hero:true},
+    {v:fmt(f.auc,4), k:"AUC, fly olfactory circuit"},
+    {v:f.train_seconds.toFixed(1)+"s", k:"to train, on CPU"},
+    {v:"1.1M", k:"LHCO events encoded"},
+  ];
+  document.getElementById("stats").innerHTML = tiles.map(t =>
+    `<div class="stat${t.hero?" hero":""}"><div class="v">${t.v}</div><div class="k">${t.k}</div></div>`
+  ).join("");
+})();
+
+/* ---- video ---- */
+(function(){
+  const w = document.getElementById("vidwrap"), cap = document.getElementById("vidcap");
+  if(VIDEO){
+    w.innerHTML = `<video src="${VIDEO}" controls loop muted playsinline autoplay></video>`;
+  } else {
+    w.innerHTML = `<div class="novideo">Reel not embedded in this build.</div>`;
+  }
+  const m = D.manifest || [];
+  const n = m.length, right = m.filter(c => (c.truth===1)===c.called_anomaly).length;
+  cap.innerHTML = n
+    ? `NeuroMechFly in MuJoCo, rendered offscreen on EGL. Each clip is one real LHCO event:
+       the MBON's novelty score picks the target, a CPG tripod gait walks there, and the
+       fly stands on its answer. ${n} clips shown &mdash; ${right} called correctly,
+       ${n-right} not. The HUD reports the truth label the detector never saw.`
+    : `NeuroMechFly in MuJoCo, rendered offscreen on EGL.`;
+})();
+
+/* ---- circuit diagram ---- */
+(function(){
+  const stages = [
+    {t:"event", s:["700 hadrons","anti-k<tspan baseline-shift='sub' font-size='7'>T</tspan> R=1.0"]},
+    {t:"antennal lobe", s:["50 glomeruli","divisive norm."]},
+    {t:"Kenyon cells", s:["2,000 cells","6 PNs each"]},
+    {t:"APL / WTA", s:["top 5%","100-of-2,000"]},
+    {t:"MBON", s:["Bloom filter","novelty score"]},
+    {t:"button", s:["descending","drive"]},
+  ];
+  const W=880,H=176,pad=8,bw=124,gap=(W-2*pad-stages.length*bw)/(stages.length-1),y=42,bh=72;
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Signal path from event to button press">`;
+  g+=`<text x="${pad}" y="18" class="axtitle" style="fill:var(--muted)">signal path</text>`;
+  stages.forEach((st,i)=>{
+    const x=pad+i*(bw+gap);
+    const isFly = i>=1 && i<=4;
+    g+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" stroke-width="1"
+         style="fill:${isFly?"var(--accent-soft)":"none"};stroke:${isFly?"var(--accent)":"var(--line)"}"/>`;
+    g+=`<text x="${x+bw/2}" y="${y+26}" text-anchor="middle" class="dlabel" style="fill:var(--ink)">${st.t}</text>`;
+    st.s.forEach((l,j)=>{
+      g+=`<text x="${x+bw/2}" y="${y+44+j*14}" text-anchor="middle" class="axlab" style="fill:var(--muted)">${l}</text>`;
+    });
+    if(i<stages.length-1){
+      const ax=x+bw+2, aw=gap-4;
+      g+=`<line x1="${ax}" y1="${y+bh/2}" x2="${ax+aw-5}" y2="${y+bh/2}" stroke-width="1" style="stroke:var(--line)"/>`;
+      g+=`<path d="M${ax+aw-5} ${y+bh/2} l-5 -3.5 v7 z" style="fill:var(--line)"/>`;
+    }
+  });
+  const x1=pad+(bw+gap), x2=pad+4*(bw+gap)+bw;
+  g+=`<line x1="${x1}" y1="${y+bh+14}" x2="${x2}" y2="${y+bh+14}" stroke-width="1" style="stroke:var(--accent)"/>`;
+  g+=`<text x="${(x1+x2)/2}" y="${y+bh+32}" text-anchor="middle" class="axlab" style="fill:var(--accent)">nothing in this span is fitted &mdash; 0 trainable parameters</text>`;
+  g+=`</svg>`;
+  document.getElementById("circuit").innerHTML=g;
+})();
+
+/* ---- results table ---- */
+(function(){
+  const rows=["fly","gaussian","autoencoder"], tok={fly:"--s1",gaussian:"--s2",autoencoder:"--s3"};
+  let h=`<thead><tr><th>Detector</th><th>Trainable params</th><th>Train</th><th>AUC</th>
+         <th>Max SIC</th><th>&epsilon;<sub>S</sub> @ &epsilon;<sub>B</sub>=10<sup>&minus;2</sup></th></tr></thead><tbody>`;
+  rows.forEach(k=>{
+    const r=D.results[k]; if(!r) return;
+    h+=`<tr class="${k==='fly'?'fly':''}">
+      <td><span class="swatch" style="background:var(${tok[k]})"></span>${r.name}</td>
+      <td class="num">${commas(r.trainable_parameters)}</td>
+      <td class="num">${r.train_seconds.toFixed(1)}s</td>
+      <td class="num">${fmt(r.auc,4)}</td>
+      <td class="num">${fmt(r.max_sic,2)}</td>
+      <td class="num">${fmt(r["eps_s_at_eps_b_1e-2"],3)}</td></tr>`;
+  });
+  document.getElementById("restable").innerHTML=h+"</tbody>";
+})();
+
+/* ---- working points ---- */
+(function(){
+  const el=document.getElementById("wptable"); if(!el||!D.working_points) return;
+  const tok={fly:"--s1",gaussian:"--s2",autoencoder:"--s3"};
+  let h=`<thead><tr><th>Background efficiency &epsilon;<sub>B</sub></th>
+    <th>Random</th>`;
+  ["fly","gaussian","autoencoder"].forEach(k=>{
+    if(D.results[k]) h+=`<th><span class="swatch" style="background:var(${tok[k]})"></span>${D.results[k].name.split(" ")[0]}</th>`;});
+  h+=`</tr></thead><tbody>`;
+  D.working_points.forEach(r=>{
+    const f=v=>v<0.01?v.toExponential(1):v.toFixed(3);
+    h+=`<tr><td class="num">${f(r.eps_b)}</td><td class="num" style="color:var(--muted)">${f(r.eps_b)}</td>`;
+    ["fly","gaussian","autoencoder"].forEach(k=>{
+      if(r[k]===undefined) return;
+      const below=r[k]<r.eps_b;
+      h+=`<td class="num" style="${below?`color:var(--anomaly);font-weight:600`:""}">${f(r[k])}</td>`;});
+    h+=`</tr>`;});
+  el.innerHTML=h+"</tbody>";
+})();
+
+/* ---- tiny chart kit ---- */
+function mkplot(el,{W=760,H=300,m={t:14,r:18,b:44,l:52}}={}){
+  const svg=document.createElementNS(SVGNS,"svg");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`); el.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; el.appendChild(tip);
+  return {svg,tip,W,H,m,iw:W-m.l-m.r,ih:H-m.t-m.b};
+}
+const SVGNS="http://www.w3.org/2000/svg";
+const COLORKEY=new Set(["fill","stroke"]);
+function N(t,a){
+  const e=document.createElementNS(SVGNS,t); let st=a.style?a.style+";":"";
+  for(const k in a){
+    if(k==="style") continue;
+    if(COLORKEY.has(k)&&String(a[k]).startsWith("var(")) st+=k+":"+a[k]+";";
+    else e.setAttribute(k,a[k]);
+  }
+  if(st) e.setAttribute("style",st);
+  return e;
+}
+
+/* ---- ROC ---- */
+(function(){
+  const el=document.getElementById("rocplot"); if(!el) return;
+  const P=mkplot(el), {svg,m,iw,ih}=P;
+  const lx=v=>Math.log10(Math.max(v,1e-4));
+  const X=v=>m.l+(lx(v)-lx(1e-4))/(0-lx(1e-4))*iw, Y=v=>m.t+ih-v*ih;
+  [0,.25,.5,.75,1].forEach(v=>{
+    svg.appendChild(N("line",{x1:m.l,y1:Y(v),x2:m.l+iw,y2:Y(v),class:"gridline"}));
+    svg.appendChild(N("text",{x:m.l-9,y:Y(v)+3.5,"text-anchor":"end",class:"axlab"})).textContent=v.toFixed(2);
+  });
+  [1e-4,1e-3,1e-2,1e-1,1].forEach(v=>{
+    svg.appendChild(N("line",{x1:X(v),y1:m.t,x2:X(v),y2:m.t+ih,class:"gridline"}));
+    const lab=v===1?"1":"10"; const t=N("text",{x:X(v),y:m.t+ih+18,"text-anchor":"middle",class:"axlab"});
+    t.textContent=lab; svg.appendChild(t);
+    if(v!==1){const sup=N("tspan",{"baseline-shift":"super","font-size":"7"}); sup.textContent=String(Math.round(Math.log10(v))); t.appendChild(sup);}
+  });
+  svg.appendChild(N("line",{x1:m.l,y1:m.t+ih,x2:m.l+iw,y2:m.t+ih,class:"axis"}));
+  const xt=N("text",{x:m.l+iw/2,y:m.t+ih+38,"text-anchor":"middle",class:"axtitle"});
+  xt.textContent="background efficiency  εB"; svg.appendChild(xt);
+  const yt=N("text",{x:-(m.t+ih/2),y:14,transform:"rotate(-90)","text-anchor":"middle",class:"axtitle"});
+  yt.textContent="signal efficiency  εS"; svg.appendChild(yt);
+  // diagonal reference: random guessing on a log x axis
+  let dg=""; for(let i=0;i<=60;i++){const v=1e-4*Math.pow(1e4,i/60); dg+=(i?"L":"M")+X(v)+" "+Y(v);}
+  svg.appendChild(N("path",{d:dg,fill:"none",stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 4",opacity:.65}));
+  const tokmap={fly:"--s1",gaussian:"--s2",autoencoder:"--s3"};
+  D.series.forEach(s=>{
+    const col="var("+tokmap[s.key]+")";
+    let d=""; s.points.forEach((p,i)=>{ if(p[0]<1e-4) return; d+=(d?"L":"M")+X(p[0])+" "+Y(p[1]); });
+    svg.appendChild(N("path",{d,fill:"none",stroke:col,"stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"}));
+  });
+  const cross=N("line",{y1:m.t,y2:m.t+ih,stroke:"var(--ink-2)","stroke-width":1,opacity:0});
+  svg.appendChild(cross);
+  const dots=D.series.map(s=>{const c=N("circle",{r:4,fill:"var("+tokmap[s.key]+")",stroke:"var(--surface)","stroke-width":2,opacity:0});svg.appendChild(c);return c;});
+  const hit=N("rect",{x:m.l,y:m.t,width:iw,height:ih,fill:"transparent"}); svg.appendChild(hit);
+  const at=(s,f)=>{let best=s.points[0]; for(const p of s.points){ if(p[0]<=f) best=p; else break;} return best;};
+  function move(ev){
+    const r=svg.getBoundingClientRect(), px=(ev.clientX-r.left)/r.width*P.W;
+    const frac=Math.min(1,Math.max(0,(px-m.l)/iw)); const f=Math.pow(10,lx(1e-4)+frac*(0-lx(1e-4)));
+    cross.setAttribute("x1",X(f)); cross.setAttribute("x2",X(f)); cross.setAttribute("opacity",.5);
+    let html=`<b>εB = ${f<0.01?f.toExponential(1):f.toFixed(3)}</b>`;
+    D.series.forEach((s,i)=>{const p=at(s,f); dots[i].setAttribute("cx",X(f)); dots[i].setAttribute("cy",Y(p[1])); dots[i].setAttribute("opacity",1);
+      html+=`<br>${s.name.split(" ")[0]} &middot; εS ${p[1].toFixed(3)}`;});
+    P.tip.innerHTML=html; P.tip.classList.add("on");
+    P.tip.style.left=(X(f)/P.W*100)+"%"; P.tip.style.top=(m.t+10)+"px";
+  }
+  hit.addEventListener("mousemove",move);
+  hit.addEventListener("mouseleave",()=>{cross.setAttribute("opacity",0);dots.forEach(d=>d.setAttribute("opacity",0));P.tip.classList.remove("on");});
+  document.getElementById("roclegend").innerHTML=D.series.map(s=>
+    `<span><i class="swatch" style="background:var(${tokmap[s.key]})"></i>${s.name} <span class="mono" style="color:var(--muted)">${fmt(s.auc,3)}</span></span>`).join("");
+})();
+
+/* ---- novelty histogram ---- */
+(function(){
+  const el=document.getElementById("histplot"); if(!el) return;
+  const h=D.hist, P=mkplot(el,{H:260}), {svg,m,iw,ih}=P;
+  const e=h.edges, x0=e[0], x1=e[e.length-1];
+  const mx=Math.max(...h.qcd,...h.signal)*1.08;
+  const X=v=>m.l+(v-x0)/(x1-x0)*iw, Y=v=>m.t+ih-v/mx*ih;
+  [0,.5,1].forEach(f=>{const v=mx*f;
+    svg.appendChild(N("line",{x1:m.l,y1:Y(v),x2:m.l+iw,y2:Y(v),class:"gridline"}));});
+  for(let i=0;i<=4;i++){const v=x0+(x1-x0)*i/4;
+    const t=N("text",{x:X(v),y:m.t+ih+18,"text-anchor":"middle",class:"axlab"}); t.textContent=v.toFixed(2); svg.appendChild(t);}
+  svg.appendChild(N("line",{x1:m.l,y1:m.t+ih,x2:m.l+iw,y2:m.t+ih,class:"axis"}));
+  const xt=N("text",{x:m.l+iw/2,y:m.t+ih+38,"text-anchor":"middle",class:"axtitle"});
+  xt.textContent="MBON novelty score"; svg.appendChild(xt);
+  const yt=N("text",{x:-(m.t+ih/2),y:14,transform:"rotate(-90)","text-anchor":"middle",class:"axtitle"});
+  yt.textContent="density"; svg.appendChild(yt);
+  const draw=(vals,col,fill)=>{
+    let d=`M${X(e[0])} ${Y(0)}`;
+    vals.forEach((v,i)=>{d+=`L${X(e[i])} ${Y(v)}L${X(e[i+1])} ${Y(v)}`;});
+    d+=`L${X(e[e.length-1])} ${Y(0)}Z`;
+    svg.appendChild(N("path",{d,fill:col,"fill-opacity":fill,stroke:col,"stroke-width":1.5,"stroke-linejoin":"round"}));
+  };
+  draw(h.qcd,"var(--normal)",.18); draw(h.signal,"var(--anomaly)",.18);
+  document.getElementById("histlegend").innerHTML=
+    `<span><i class="swatch" style="background:var(--normal)"></i>QCD dijet</span>
+     <span><i class="swatch" style="background:var(--anomaly)"></i>Z&prime; &rarr; XY signal</span>`;
+})();
+
+/* ---- KC sweep ---- */
+(function(){
+  const el=document.getElementById("sweepplot"); if(!el||!D.sweep.length) return;
+  const S=D.sweep, P=mkplot(el,{H:270}), {svg,m,iw,ih}=P;
+  const xs=S.map(p=>Math.log10(p.n_kc)), x0=Math.min(...xs), x1=Math.max(...xs);
+  const ys=S.map(p=>p.auc); let y0=Math.min(...ys), y1=Math.max(...ys);
+  const padY=(y1-y0)*0.25||0.01; y0-=padY; y1+=padY;
+  const X=v=>m.l+(Math.log10(v)-x0)/(x1-x0)*iw, Y=v=>m.t+ih-(v-y0)/(y1-y0)*ih;
+  for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4;
+    svg.appendChild(N("line",{x1:m.l,y1:Y(v),x2:m.l+iw,y2:Y(v),class:"gridline"}));
+    const t=N("text",{x:m.l-9,y:Y(v)+3.5,"text-anchor":"end",class:"axlab"}); t.textContent=v.toFixed(3); svg.appendChild(t);}
+  S.forEach(p=>{const t=N("text",{x:X(p.n_kc),y:m.t+ih+18,"text-anchor":"middle",class:"axlab"});
+    t.textContent=p.n_kc>=1000?(p.n_kc/1000)+"k":p.n_kc; svg.appendChild(t);});
+  svg.appendChild(N("line",{x1:m.l,y1:m.t+ih,x2:m.l+iw,y2:m.t+ih,class:"axis"}));
+  const xt=N("text",{x:m.l+iw/2,y:m.t+ih+38,"text-anchor":"middle",class:"axtitle"});
+  xt.textContent="Kenyon cells"; svg.appendChild(xt);
+  const yt=N("text",{x:-(m.t+ih/2),y:14,transform:"rotate(-90)","text-anchor":"middle",class:"axtitle"});
+  yt.textContent="AUC"; svg.appendChild(yt);
+  const real=S.find(p=>p.n_kc===2000);
+  if(real){
+    svg.appendChild(N("line",{x1:X(2000),y1:m.t,x2:X(2000),y2:m.t+ih,stroke:"var(--accent)","stroke-width":1,"stroke-dasharray":"3 4",opacity:.8}));
+    const t=N("text",{x:X(2000)+7,y:m.t+13,class:"dlabel",fill:"var(--accent)"}); t.textContent="a real fly"; svg.appendChild(t);
+  }
+  let d=""; S.forEach((p,i)=>{d+=(i?"L":"M")+X(p.n_kc)+" "+Y(p.auc);});
+  svg.appendChild(N("path",{d,fill:"none",stroke:"var(--s1)","stroke-width":2,"stroke-linejoin":"round"}));
+  const peak=S.reduce((a,b)=>b.auc>a.auc?b:a);
+  S.forEach(p=>{
+    const isPeak=p.n_kc===peak.n_kc;
+    const c=N("circle",{cx:X(p.n_kc),cy:Y(p.auc),r:isPeak?5.5:4,fill:"var(--s1)",stroke:"var(--surface)","stroke-width":2});
+    c.style.cursor="crosshair"; svg.appendChild(c);
+    c.addEventListener("mouseenter",()=>{P.tip.innerHTML=`${commas(p.n_kc)} KCs<br>AUC ${fmt(p.auc,4)}`;
+      P.tip.classList.add("on"); P.tip.style.left=(X(p.n_kc)/P.W*100)+"%"; P.tip.style.top=(Y(p.auc)-6)+"px";});
+    c.addEventListener("mouseleave",()=>P.tip.classList.remove("on"));
+  });
+  const pk=N("text",{x:X(peak.n_kc),y:Y(peak.auc)-14,"text-anchor":"middle",class:"dlabel",fill:"var(--s1)"});
+  pk.textContent="peak "+fmt(peak.auc,4); svg.appendChild(pk);
+  const note=document.getElementById("sweepnote");
+  if(note){
+    note.innerHTML=`<div class="t">The expansion is doing real work &mdash; up to a point</div>
+      <p>Going from 50 Kenyon cells to ${commas(peak.n_kc)} buys
+      ${((peak.auc-S[0].auc)*1000/10).toFixed(1)} points of AUC, so the 40&times; expansion is not
+      decoration. Past the peak it decays: the hash gets fine enough that similar events stop
+      sharing Kenyon cells and the novelty estimate turns noisy. The optimum sits within a
+      factor of a few of the ~2,000 cells a fly actually has.</p>`;
+  }
+})();
+</script>
