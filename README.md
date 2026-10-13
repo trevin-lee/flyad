@@ -12,9 +12,7 @@ running in the CMS Global Trigger.
 beaten by a plain autoencoder. That is the honest headline and the rest of this
 README does not walk it back. What it does do, it does with nothing fitted.
 
-<!-- To show a video inline: edit this file in the GitHub web UI and
-     drag outputs/lhco/reel_combined.mp4 into it. GitHub will insert a
-     user-attachments URL here. -->
+![Kenyon cells firing beside the fly deciding, on LHC Olympics 2020 dijets](outputs/lhco/reel_combined.gif)
 
 | | |
 | --- | --- |
